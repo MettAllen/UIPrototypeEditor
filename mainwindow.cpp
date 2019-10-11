@@ -1,3 +1,4 @@
+#include "graphics_view_zoom.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QGraphicsPixmapItem>
@@ -8,6 +9,10 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     scene = new QGraphicsScene(this);
+
+    Graphics_view_zoom *z = new Graphics_view_zoom(ui->WorkPlaceGV);
+    z->set_modifiers(Qt::NoModifier);
+
     LoadTools();
 
     connect(ui->ToolBoxLW, SIGNAL(itemClicked(QListWidgetItem*)),
