@@ -4,6 +4,8 @@
 #include <QGraphicsScene>
 #include <QListWidget>
 #include <QMainWindow>
+#include <QDragEnterEvent>
+#include <QGraphicsPixmapItem>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -18,6 +20,9 @@ public:
     ~MainWindow();
 
     void LoadTools();
+protected:
+    void dropEvent(QDropEvent *event);
+    void dragEnterEvent(QDragEnterEvent *event);
 private slots:
     void on_actionAdd_Descktop_Frame_triggered();
 
