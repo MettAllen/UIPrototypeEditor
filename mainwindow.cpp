@@ -1,6 +1,11 @@
 #include "graphics_view_zoom.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "ui_mainwindow.h"
+
+#include <QFileDialog>
+#include <QMessageBox>
+#include <QPushButton>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -18,6 +23,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->ToolBoxLW, SIGNAL(itemClicked(QListWidgetItem*)),
                 this, SLOT(onListMailItemClicked(QListWidgetItem*)));
     setAcceptDrops(true);
+
+    ui->WorkPlaceGV->setBackgroundBrush(QPixmap(":/resource/frames/bg_grid.gif"));
 }
 
 MainWindow::~MainWindow()
@@ -92,47 +99,58 @@ void MainWindow::on_actionAdd_Empty_Frame_triggered()
 
 void MainWindow::on_ToolBoxLW_itemDoubleClicked(QListWidgetItem *item)
 {
-    if (ui->ToolBoxLW->item(0) == item) {
+    if ( ui->WorkPlaceGV->items().empty())
+    {
+        QMessageBox TrueInputMsgBox;
+        TrueInputMsgBox.setWindowTitle("Data entry error");
+        TrueInputMsgBox.setText("Select one of the frames for the application.This can be done in the menu at the top, the item <Add Frame>.");
+        QPushButton *OKButton = TrueInputMsgBox.addButton(QMessageBox::Ok);
+        TrueInputMsgBox.exec();
+    }
+    else
+    {
+        if (ui->ToolBoxLW->item(0) == item) {
 
-        QGraphicsPixmapItem* item = scene->addPixmap(QPixmap(":/resource/items/button.png"));
-        item->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
+            QGraphicsPixmapItem* item = scene->addPixmap(QPixmap(":/resource/items/button.png"));
+            item->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
         }
 
-    if (ui->ToolBoxLW->item(1) == item) {
+        if (ui->ToolBoxLW->item(1) == item) {
 
-        QGraphicsPixmapItem* item = scene->addPixmap(QPixmap(":/resource/items/label.png"));
-        item->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
+            QGraphicsPixmapItem* item = scene->addPixmap(QPixmap(":/resource/items/label.png"));
+            item->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
         }
 
-    if (ui->ToolBoxLW->item(2) == item) {
+        if (ui->ToolBoxLW->item(2) == item) {
 
-        QGraphicsPixmapItem* item = scene->addPixmap(QPixmap(":/resource/items/progress.png"));
-        item->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
+            QGraphicsPixmapItem* item = scene->addPixmap(QPixmap(":/resource/items/progress.png"));
+            item->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
         }
 
-    if (ui->ToolBoxLW->item(3) == item) {
+        if (ui->ToolBoxLW->item(3) == item) {
 
-        QGraphicsPixmapItem* item = scene->addPixmap(QPixmap(":/resource/items/slider.png"));
-        item->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
+            QGraphicsPixmapItem* item = scene->addPixmap(QPixmap(":/resource/items/slider.png"));
+            item->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
         }
 
-    if (ui->ToolBoxLW->item(4) == item) {
+        if (ui->ToolBoxLW->item(4) == item) {
 
-        QGraphicsPixmapItem* item = scene->addPixmap(QPixmap(":/resource/items/textarea.png"));
-        item->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
+            QGraphicsPixmapItem* item = scene->addPixmap(QPixmap(":/resource/items/textarea.png"));
+            item->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
         }
 
-    if (ui->ToolBoxLW->item(5) == item) {
+        if (ui->ToolBoxLW->item(5) == item) {
 
-        QGraphicsPixmapItem* item = scene->addPixmap(QPixmap(":/resource/items/textinput.png"));
-        item->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
+            QGraphicsPixmapItem* item = scene->addPixmap(QPixmap(":/resource/items/textinput.png"));
+            item->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
         }
 
-    if (ui->ToolBoxLW->item(6) == item) {
+        if (ui->ToolBoxLW->item(6) == item) {
 
-        QGraphicsPixmapItem* item = scene->addPixmap(QPixmap(":/resource/items/toggle.png"));
-        item->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
+            QGraphicsPixmapItem* item = scene->addPixmap(QPixmap(":/resource/items/toggle.png"));
+            item->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
         }
+    }
 }
 
 void MainWindow::dragEnterEvent(QDragEnterEvent *event) {
@@ -140,7 +158,57 @@ void MainWindow::dragEnterEvent(QDragEnterEvent *event) {
     event->acceptProposedAction();
 }
 
-
 void MainWindow::dropEvent(QDropEvent *event) {
 
+}
+
+void MainWindow::on_actionSave_As_triggered()
+{
+    if ( scene->items().empty())
+    {
+        QMessageBox TrueInputMsgBox;
+        TrueInputMsgBox.setWindowTitle("Data entry error");
+        TrueInputMsgBox.setText("Please check that your project is not empty.");
+        QPushButton *OKButton = TrueInputMsgBox.addButton(QMessageBox::Ok);
+        TrueInputMsgBox.exec();
+
+    }
+    else
+    {
+        QMessageBox SaveQstnMsgBox;
+        SaveQstnMsgBox.setWindowTitle("Save project");
+        SaveQstnMsgBox.setText("Finish your project?");
+        QPushButton *YESButton = SaveQstnMsgBox.addButton(QMessageBox::Yes);
+        QPushButton *NOButton = SaveQstnMsgBox.addButton(QMessageBox::No);
+
+        SaveQstnMsgBox.exec();
+
+        if (SaveQstnMsgBox.clickedButton()==YESButton)
+        {
+            QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"), "",
+                                                            tr("PNG Files (*.png);;JPG Files (*.jpg)"));
+            if (fileName != "")
+            {
+                QFile file(fileName);
+                QImage image(ui->WorkPlaceGV->width(),ui->WorkPlaceGV->height(), QImage::Format_ARGB32_Premultiplied);
+                QPainter painter(&image);
+                ui->WorkPlaceGV->render(&painter);
+                image.save(fileName);
+            }
+            else
+            {
+                if (SaveQstnMsgBox.clickedButton()==NOButton)
+                {
+                    SaveQstnMsgBox.close();
+                }
+            }
+        }
+    }
+}
+
+void MainWindow::on_actionOpen_triggered()
+{
+    QString fileName = QFileDialog::getOpenFileName(this,"Open Image File",QDir::currentPath());
+    scene->addPixmap(QPixmap(fileName));
+    ui->WorkPlaceGV->setScene(scene);
 }

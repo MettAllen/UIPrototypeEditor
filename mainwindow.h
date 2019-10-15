@@ -32,6 +32,10 @@ private slots:
 
     void on_ToolBoxLW_itemDoubleClicked(QListWidgetItem *item);
 
+    void on_actionSave_As_triggered();
+
+    void on_actionOpen_triggered();
+
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene;
