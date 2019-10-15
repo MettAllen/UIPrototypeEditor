@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
     LoadTools();
 
     connect(ui->ToolBoxLW, SIGNAL(itemClicked(QListWidgetItem*)),
-                this, SLOT(onListMailItemClicked(QListWidgetItem*)));
+            this, SLOT(onListMailItemClicked(QListWidgetItem*)));
     setAcceptDrops(true);
 
     ui->WorkPlaceGV->setBackgroundBrush(QPixmap(":/resource/frames/bg_grid.gif"));
@@ -34,7 +34,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::LoadTools()
 {
-   //WigetLoad
+    //WigetLoad
     ui->ToolBoxLW->setDragEnabled(true);
     ui->ToolBoxLW->setAcceptDrops(true);
     ui->ToolBoxLW->setDropIndicatorShown(true);
@@ -92,6 +92,7 @@ void MainWindow::on_actionAdd_Empty_Frame_triggered()
 {
     scene = new QGraphicsScene(this);
     scene->clear();
+    scene->addPixmap((QPixmap(":/resource/frames/bg_grid.gif")));
     ui->WorkPlaceGV->setScene(scene);
     ui->WorkPlaceGV->show();
     setAcceptDrops(true);

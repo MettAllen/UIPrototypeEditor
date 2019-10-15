@@ -20,9 +20,11 @@ public:
     ~MainWindow();
 
     void LoadTools();
+
 protected:
     void dropEvent(QDropEvent *event);
     void dragEnterEvent(QDragEnterEvent *event);
+
 private slots:
     void on_actionAdd_Descktop_Frame_triggered();
 

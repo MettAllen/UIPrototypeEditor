@@ -5,12 +5,12 @@
 #include <graphics_view_zoom.h>
 
 Graphics_view_zoom::Graphics_view_zoom(QGraphicsView* view)
-  : QObject(view), view(view)
+    : QObject(view), view(view)
 {
-  view->viewport()->installEventFilter(this);
-  view->setMouseTracking(true);
-  modifiers = Qt::ControlModifier;
-  zoom_factor_base = 1.0015;
+    view->viewport()->installEventFilter(this);
+    view->setMouseTracking(true);
+    modifiers = Qt::ControlModifier;
+    zoom_factor_base = 1.0015;
 }
 
 void Graphics_view_zoom::gentle_zoom(double factor)
@@ -28,13 +28,13 @@ void Graphics_view_zoom::gentle_zoom(double factor)
 
 void Graphics_view_zoom::set_modifiers(Qt::KeyboardModifiers modifiers)
 {
-  modifiers = modifiers;
+    modifiers = modifiers;
 
 }
 
 void Graphics_view_zoom::set_zoom_factor_base(double value)
 {
-  zoom_factor_base = value;
+    zoom_factor_base = value;
 }
 
 bool Graphics_view_zoom::eventFilter(QObject *object, QEvent *event)
@@ -67,6 +67,6 @@ bool Graphics_view_zoom::eventFilter(QObject *object, QEvent *event)
             }
         }
 
-  Q_UNUSED(object)
-  return false;
+    Q_UNUSED(object)
+    return false;
 }
