@@ -5,8 +5,12 @@
 #include <QListWidget>
 #include <QMainWindow>
 #include <QDragEnterEvent>
-#include <QGraphicsPixmapItem>
 #include <QMimeData>
+#include <QFileDialog>
+#include <QGraphicsPixmapItem>
+#include <QMessageBox>
+#include <QPushButton>
+#include <QShortcut>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -21,6 +25,7 @@ public:
     ~MainWindow();
 
     void LoadTools();
+
 
 protected:
     void dropEvent(QDropEvent *event);
@@ -39,7 +44,7 @@ private slots:
 
     void on_actionOpen_triggered();
 
-    void CopyItem();
+    void delete_selected();
 
 private:
     Ui::MainWindow *ui;

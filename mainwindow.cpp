@@ -3,11 +3,6 @@
 #include "ui_mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include <QFileDialog>
-#include <QGraphicsPixmapItem>
-#include <QGraphicsPixmapItem>
-#include <QMessageBox>
-#include <QPushButton>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -22,9 +17,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     LoadTools();
 
-    connect(ui->ToolBoxLW, SIGNAL(itemClicked(QListWidgetItem*)),
-            this, SLOT(onListMailItemClicked(QListWidgetItem*)));
+    connect(ui->ToolBoxLW, SIGNAL(itemClicked(QListWidgetItem*)),this, SLOT(onListMailItemClicked(QListWidgetItem*)));
     setAcceptDrops(true);
+    new QShortcut(QKeySequence::Delete, this, SLOT(delete_selected()));
 
     ui->WorkPlaceGV->setBackgroundBrush(QPixmap(":/resource/frames/bg_grid.gif"));
 }
@@ -228,15 +223,15 @@ void MainWindow::on_actionSave_As_triggered()
 
 void MainWindow::on_actionOpen_triggered()
 {
+
     QString fileName = QFileDialog::getOpenFileName(this,"Open Image File",QDir::currentPath());
     QGraphicsPixmapItem* item = scene->addPixmap(QPixmap(fileName));
     ui->WorkPlaceGV->setScene(scene);
-
     item->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
-
 }
 
-void MainWindow::CopyItem()
-{
-
+void MainWindow::delete_selected() {
+  foreach(QGraphicsItem * item, scene->selectedItems()) {
+    delete item;
+  }
 }
