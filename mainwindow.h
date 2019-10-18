@@ -6,6 +6,7 @@
 #include <QMainWindow>
 #include <QDragEnterEvent>
 #include <QGraphicsPixmapItem>
+#include <QMimeData>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -38,9 +39,12 @@ private slots:
 
     void on_actionOpen_triggered();
 
+    void CopyItem();
+
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene;
     QListWidgetItem *item;
+
 };
 #endif // MAINWINDOW_H

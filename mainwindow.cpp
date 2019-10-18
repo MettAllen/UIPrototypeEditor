@@ -4,6 +4,8 @@
 #include "ui_mainwindow.h"
 
 #include <QFileDialog>
+#include <QGraphicsPixmapItem>
+#include <QGraphicsPixmapItem>
 #include <QMessageBox>
 #include <QPushButton>
 
@@ -155,11 +157,28 @@ void MainWindow::on_ToolBoxLW_itemDoubleClicked(QListWidgetItem *item)
 }
 
 void MainWindow::dragEnterEvent(QDragEnterEvent *event) {
-
-    event->acceptProposedAction();
+    if ( ui->WorkPlaceGV->items().empty())
+    {
+        QMessageBox TrueInputMsgBox;
+        TrueInputMsgBox.setWindowTitle("Data entry error");
+        TrueInputMsgBox.setText("Select one of the frames for the application.This can be done in the menu at the top, the item <Add Frame>.");
+        QPushButton *OKButton = TrueInputMsgBox.addButton(QMessageBox::Ok);
+        TrueInputMsgBox.exec();
+    }
+    else
+    {
+        if (event->mimeData()->hasUrls()) {
+            event->acceptProposedAction();
+        }
+    }
 }
 
 void MainWindow::dropEvent(QDropEvent *event) {
+    foreach(QUrl url, event->mimeData()->urls()) {
+      QGraphicsPixmapItem *item = scene->addPixmap(url.toLocalFile());
+      item->setPos(ui->WorkPlaceGV->mapToScene(ui->WorkPlaceGV->viewport()->mapFrom(this, event->pos())));
+      item->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
+    }
 
 }
 
@@ -210,6 +229,14 @@ void MainWindow::on_actionSave_As_triggered()
 void MainWindow::on_actionOpen_triggered()
 {
     QString fileName = QFileDialog::getOpenFileName(this,"Open Image File",QDir::currentPath());
-    scene->addPixmap(QPixmap(fileName));
+    QGraphicsPixmapItem* item = scene->addPixmap(QPixmap(fileName));
     ui->WorkPlaceGV->setScene(scene);
+
+    item->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
+
+}
+
+void MainWindow::CopyItem()
+{
+
 }
