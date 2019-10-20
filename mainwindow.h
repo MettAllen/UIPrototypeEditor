@@ -25,6 +25,8 @@ public:
     ~MainWindow();
 
     void LoadTools();
+    void SaveProject();
+    void OpenProject();
 
 
 protected:
@@ -32,13 +34,13 @@ protected:
     void dragEnterEvent(QDragEnterEvent *event);
 
 private slots:
+    void on_ToolBoxLW_itemDoubleClicked(QListWidgetItem *item);
+
     void on_actionAdd_Descktop_Frame_triggered();
 
     void on_actionAdd_Mobile_Frame_triggered();
 
     void on_actionAdd_Empty_Frame_triggered();
-
-    void on_ToolBoxLW_itemDoubleClicked(QListWidgetItem *item);
 
     void on_actionSave_As_triggered();
 
