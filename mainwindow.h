@@ -11,6 +11,8 @@
 #include <QMessageBox>
 #include <QPushButton>
 #include <QShortcut>
+#include <QClipboard>
+#include <QUndoCommand>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

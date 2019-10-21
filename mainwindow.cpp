@@ -1,7 +1,9 @@
+
 #include "graphics_view_zoom.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "ui_mainwindow.h"
+
+
 
 
 
@@ -243,8 +245,10 @@ void MainWindow::on_actionOpen_triggered()
     OpenProject();
 }
 
-void MainWindow::delete_selected() {
-  foreach(QGraphicsItem * item, scene->selectedItems()) {
+void MainWindow::delete_selected()
+{
+  foreach(QGraphicsItem * item, scene->selectedItems())
+  {
     delete item;
   }
 }
