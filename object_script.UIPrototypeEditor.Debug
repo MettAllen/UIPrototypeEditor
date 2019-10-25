@@ -1,0 +1,11 @@
+debug/baseitem.o
+debug/basicshapeitem.o
+debug/editorscene.o
+debug/graphics_view_zoom.o
+debug/handle.o
+debug/main.o
+debug/mainwindow.o
+debug/qrc_Resources.o
+debug/moc_editorscene.o
+debug/moc_graphics_view_zoom.o
+debug/moc_mainwindow.o

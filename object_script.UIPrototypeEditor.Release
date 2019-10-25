@@ -1,0 +1,11 @@
+release/baseitem.o
+release/basicshapeitem.o
+release/editorscene.o
+release/graphics_view_zoom.o
+release/handle.o
+release/main.o
+release/mainwindow.o
+release/qrc_Resources.o
+release/moc_editorscene.o
+release/moc_graphics_view_zoom.o
+release/moc_mainwindow.o

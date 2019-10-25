@@ -1,38 +1,41 @@
-
-#include "graphics_view_zoom.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QGraphicsRectItem>
+#include "editorscene.h"
+#include "basicshapeitem.h"
+#include "graphics_view_zoom.h"
+#include <QDebug>
+#include <QStyleFactory>
+#include <QApplication>
 
-
-
-
-
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+MainWindow::MainWindow(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
-    scene = new QGraphicsScene(this);
-
     ui->WorkPlaceGV->setDragMode(QGraphicsView::RubberBandDrag);
 
-    ui->WorkPlaceGV->setBackgroundBrush(QPixmap(":/resource/frames/bg_grid.gif"));
+
+
+
+    LoadTools();
 
     Graphics_view_zoom *z = new Graphics_view_zoom(ui->WorkPlaceGV);
     z->set_modifiers(Qt::NoModifier);
 
+    ui->WorkPlaceGV->setBackgroundBrush(QPixmap(":/Resources/frames/bg_grid.gif"));
+
+
+
     connect(ui->ToolBoxLW, SIGNAL(itemClicked(QListWidgetItem*)),this, SLOT(onListMailItemClicked(QListWidgetItem*)));
     setAcceptDrops(true);
 
+    scene = new EditorScene();
+
+    ui->WorkPlaceGV->setScene(scene);
+
     new QShortcut(QKeySequence::Delete, this, SLOT(delete_selected()));
 
-    LoadTools();
-}
-
-MainWindow::~MainWindow()
-{
-    delete ui;
 }
 
 void MainWindow::LoadTools()
@@ -45,31 +48,88 @@ void MainWindow::LoadTools()
 
     ui->ToolBoxLW->setIconSize(QSize(100,100));
 
-    item = new QListWidgetItem(QIcon(":/resource/items/button.png"),nullptr);
+    item = new QListWidgetItem(QIcon(":/Resources/items/button.png"),nullptr);
     ui->ToolBoxLW->addItem(item);
 
-    item = new QListWidgetItem(QIcon(":/resource/items/label.png"),nullptr);
+    item = new QListWidgetItem(QIcon(":/Resources/items/label.png"),nullptr);
     ui->ToolBoxLW->addItem(item);
 
-    item = new QListWidgetItem(QIcon(":/resource/items/progress.png"),nullptr);
+    item = new QListWidgetItem(QIcon(":/Resources/items/checkbox.png"),nullptr);
     ui->ToolBoxLW->addItem(item);
 
-    item = new QListWidgetItem(QIcon(":/resource/items/slider.png"),nullptr);
+    item = new QListWidgetItem(QIcon(":/Resources/items/slider.png"),nullptr);
     ui->ToolBoxLW->addItem(item);
 
-    item = new QListWidgetItem(QIcon(":/resource/items/textarea.png"),nullptr);
+    item = new QListWidgetItem(QIcon(":/Resources/items/textarea.png"),nullptr);
     ui->ToolBoxLW->addItem(item);
 
-    item = new QListWidgetItem(QIcon(":/resource/items/textinput.png"),nullptr);
+    item = new QListWidgetItem(QIcon(":/Resources/items/textinput.png"),nullptr);
     ui->ToolBoxLW->addItem(item);
 
-    item = new QListWidgetItem(QIcon(":/resource/items/toggle.png"),nullptr);
+    item = new QListWidgetItem(QIcon(":/Resources/items/toggle.png"),nullptr);
     ui->ToolBoxLW->addItem(item);
 
 }
 
+
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+
+void MainWindow::on_ToolBoxLW_itemDoubleClicked(QListWidgetItem *item)
+{
+
+        if (ui->ToolBoxLW->item(0) == item)
+        {
+            BasicShapesItem *item = new BasicShapesItem(12,12,100,30,BasicShapesItem::ITEM_TOOL,scene);
+            item->setPixmap(":/Resources/items/button.png");
+        }
+
+        if (ui->ToolBoxLW->item(1) == item)
+        {
+            BasicShapesItem *item = new BasicShapesItem(12,12,100,30,BasicShapesItem::ITEM_TOOL,scene);
+            item->setPixmap(":/Resources/items/label.png");
+        }
+
+        if (ui->ToolBoxLW->item(2) == item)
+        {
+            BasicShapesItem *item = new BasicShapesItem(12,12,100,30,BasicShapesItem::ITEM_TOOL,scene);
+            item->setPixmap(":/Resources/items/checkbox.png");
+        }
+
+        if (ui->ToolBoxLW->item(3) == item)
+        {
+            BasicShapesItem *item = new BasicShapesItem(12,12,100,30,BasicShapesItem::ITEM_TOOL,scene);
+            item->setPixmap(":/Resources/items/slider.png");
+        }
+
+        if (ui->ToolBoxLW->item(4) == item)
+        {
+            BasicShapesItem *item = new BasicShapesItem(12,12,100,30,BasicShapesItem::ITEM_TOOL,scene);
+            item->setPixmap(":/Resources/items/textarea.png");
+        }
+
+        if (ui->ToolBoxLW->item(5) == item)
+        {
+            BasicShapesItem *item = new BasicShapesItem(12,12,100,30,BasicShapesItem::ITEM_TOOL,scene);
+            item->setPixmap(":/Resources/items/textinput.png");
+
+        }
+
+        if (ui->ToolBoxLW->item(6) == item)
+        {
+            BasicShapesItem *item = new BasicShapesItem(12,12,100,30,BasicShapesItem::ITEM_TOOL,scene);
+            item->setPixmap(":/Resources/items/toggle.png");
+            item->setFlags(BasicShapesItem::ItemIsMovable | BasicShapesItem::ItemIsSelectable);
+        }
+}
+
+
 void MainWindow::SaveProject()
 {
+
     QMessageBox SaveQstnMsgBox;
     SaveQstnMsgBox.setWindowTitle("Save project");
     SaveQstnMsgBox.setText("Finish your project?");
@@ -98,99 +158,23 @@ void MainWindow::SaveProject()
             }
         }
     }
+
 }
 
 void MainWindow::OpenProject()
 {
     QString fileName = QFileDialog::getOpenFileName(this,"Open Image File",QDir::currentPath());
-    QGraphicsPixmapItem* item = scene->addPixmap(QPixmap(fileName));
+    BasicShapesItem *item = new BasicShapesItem(12,12,100,100,BasicShapesItem::ITEM_TOOL,scene);
+    item->setPixmap(fileName);
     ui->WorkPlaceGV->setScene(scene);
-    item->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
 }
 
-
-void MainWindow::on_actionAdd_Descktop_Frame_triggered()
+void MainWindow::delete_selected()////////////
 {
-    scene->clear();
-    scene->addPixmap(QString(":/resource/frames/tablet_frame.png"));
-    ui->WorkPlaceGV->setScene(scene);
-    ui->WorkPlaceGV->show();
-    setAcceptDrops(true);
-}
-
-void MainWindow::on_actionAdd_Mobile_Frame_triggered()
-{
-    scene = new QGraphicsScene(this);
-    scene->clear();
-    scene->addPixmap(QString(":/resource/frames/phone_frame.png"));
-    ui->WorkPlaceGV->setScene(scene);
-    ui->WorkPlaceGV->show();
-    setAcceptDrops(true);
-}
-
-void MainWindow::on_actionAdd_Empty_Frame_triggered()
-{
-    scene->clear();
-    scene->addPixmap((QPixmap(":/resource/frames/bg_grid.gif")));
-    ui->WorkPlaceGV->setScene(scene);
-    ui->WorkPlaceGV->show();
-    setAcceptDrops(true);
-}
-
-void MainWindow::on_ToolBoxLW_itemDoubleClicked(QListWidgetItem *item)
-{
-    if ( ui->WorkPlaceGV->items().empty())
-    {
-        QMessageBox TrueInputMsgBox;
-        TrueInputMsgBox.setWindowTitle("Data entry error");
-        TrueInputMsgBox.setText("Select one of the frames for the application.This can be done in the menu at the top, the item <Add Frame>.");
-        QPushButton *OKButton = TrueInputMsgBox.addButton(QMessageBox::Ok);
-        TrueInputMsgBox.exec();
-    }
-    else
-    {
-        if (ui->ToolBoxLW->item(0) == item)
-        {
-            QGraphicsPixmapItem* item = scene->addPixmap(QPixmap(":/resource/items/button.png"));
-            item->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
-        }
-
-        if (ui->ToolBoxLW->item(1) == item)
-        {
-            QGraphicsPixmapItem* item = scene->addPixmap(QPixmap(":/resource/items/label.png"));
-            item->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
-        }
-
-        if (ui->ToolBoxLW->item(2) == item)
-        {
-            QGraphicsPixmapItem* item = scene->addPixmap(QPixmap(":/resource/items/progress.png"));
-            item->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
-        }
-
-        if (ui->ToolBoxLW->item(3) == item)
-        {
-            QGraphicsPixmapItem* item = scene->addPixmap(QPixmap(":/resource/items/slider.png"));
-            item->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
-        }
-
-        if (ui->ToolBoxLW->item(4) == item)
-        {
-            QGraphicsPixmapItem* item = scene->addPixmap(QPixmap(":/resource/items/textarea.png"));
-            item->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
-        }
-
-        if (ui->ToolBoxLW->item(5) == item)
-        {
-            QGraphicsPixmapItem* item = scene->addPixmap(QPixmap(":/resource/items/textinput.png"));
-            item->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
-        }
-
-        if (ui->ToolBoxLW->item(6) == item)
-        {
-            QGraphicsPixmapItem* item = scene->addPixmap(QPixmap(":/resource/items/toggle.png"));
-            item->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
-        }
-    }
+  foreach(QGraphicsItem *item, scene->selectedItems())
+  {
+    delete item;
+  }
 }
 
 void MainWindow::dragEnterEvent(QDragEnterEvent *event)
@@ -216,11 +200,16 @@ void MainWindow::dropEvent(QDropEvent *event) {
 
     foreach(QUrl url, event->mimeData()->urls())
     {
-      QGraphicsPixmapItem *item = scene->addPixmap(url.toLocalFile());
+      BasicShapesItem *item = new BasicShapesItem(12,12,100,100,BasicShapesItem::ITEM_TOOL,scene);
+      item->setPixmap(url.toLocalFile());
       item->setPos(ui->WorkPlaceGV->mapToScene(ui->WorkPlaceGV->viewport()->mapFrom(this, event->pos())));
-      item->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
     }
 
+}
+
+void MainWindow::on_actionOpen_triggered()
+{
+    OpenProject();
 }
 
 void MainWindow::on_actionSave_As_triggered()
@@ -240,15 +229,31 @@ void MainWindow::on_actionSave_As_triggered()
     }
 }
 
-void MainWindow::on_actionOpen_triggered()
+void MainWindow::on_actionAddDescktop_Frame_triggered()
 {
-    OpenProject();
+    scene->clear();
+    scene->addPixmap(QString(":/Resources/frames/tablet_frame.png"));
+    ui->WorkPlaceGV->setScene(scene);
+    ui->WorkPlaceGV->show();
+    setAcceptDrops(true);
 }
 
-void MainWindow::delete_selected()
+void MainWindow::on_actionAdd_Mobile_Frame_triggered()
 {
-  foreach(QGraphicsItem * item, scene->selectedItems())
-  {
-    delete item;
-  }
+    scene = new EditorScene();
+    scene->clear();
+    scene->addPixmap(QString(":/Resources/frames/phone_frame.png"));
+    ui->WorkPlaceGV->setScene(scene);
+    ui->WorkPlaceGV->show();
+    setAcceptDrops(true);
 }
+
+void MainWindow::on_actionAdd_Empty_Frame_triggered()
+{
+    scene->clear();
+    scene->addPixmap((QPixmap(":/Resources/frames/bg_grid.gif")));
+    ui->WorkPlaceGV->setScene(scene);
+    ui->WorkPlaceGV->show();
+    setAcceptDrops(true);
+}
+

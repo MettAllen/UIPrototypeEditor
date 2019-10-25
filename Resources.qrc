@@ -1,0 +1,21 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Resources/items/button.png</file>
+        <file>Resources/items/checkbox.png</file>
+        <file>Resources/items/combobox.png</file>
+        <file>Resources/items/image.png</file>
+        <file>Resources/items/label.png</file>
+        <file>Resources/items/numeric.png</file>
+        <file>Resources/items/progress.png</file>
+        <file>Resources/items/radiobutton .png</file>
+        <file>Resources/items/slider.png</file>
+        <file>Resources/items/textarea.png</file>
+        <file>Resources/items/textinput.png</file>
+        <file>Resources/items/toggle.png</file>
+        <file>Resources/frames/bg_grid.gif</file>
+        <file>Resources/frames/phone_frame.png</file>
+        <file>Resources/frames/tablet_frame.png</file>
+        <file>Resources/icon/open.png</file>
+        <file>Resources/icon/save.png</file>
+    </qresource>
+</RCC>
