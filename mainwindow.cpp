@@ -7,6 +7,8 @@
 #include <QDebug>
 #include <QStyleFactory>
 #include <QApplication>
+#include <QGraphicsProxyWidget>
+#include <QLabel>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -15,17 +17,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->WorkPlaceGV->setDragMode(QGraphicsView::RubberBandDrag);
 
-
-
-
     LoadTools();
 
     Graphics_view_zoom *z = new Graphics_view_zoom(ui->WorkPlaceGV);
     z->set_modifiers(Qt::NoModifier);
 
     ui->WorkPlaceGV->setBackgroundBrush(QPixmap(":/Resources/frames/bg_grid.gif"));
-
-
 
     connect(ui->ToolBoxLW, SIGNAL(itemClicked(QListWidgetItem*)),this, SLOT(onListMailItemClicked(QListWidgetItem*)));
     setAcceptDrops(true);
@@ -69,9 +66,10 @@ void MainWindow::LoadTools()
     item = new QListWidgetItem(QIcon(":/Resources/items/toggle.png"),nullptr);
     ui->ToolBoxLW->addItem(item);
 
+    item = new QListWidgetItem("Add marker");
+    ui->ToolBoxLW->addItem(item);
+
 }
-
-
 
 MainWindow::~MainWindow()
 {
@@ -122,14 +120,55 @@ void MainWindow::on_ToolBoxLW_itemDoubleClicked(QListWidgetItem *item)
         {
             BasicShapesItem *item = new BasicShapesItem(12,12,100,30,BasicShapesItem::ITEM_TOOL,scene);
             item->setPixmap(":/Resources/items/toggle.png");
-            item->setFlags(BasicShapesItem::ItemIsMovable | BasicShapesItem::ItemIsSelectable);
+        }
+
+        if (ui->ToolBoxLW->item(7) == item)
+        {
+            /// до реализовать жесткие размеры
+
+            auto *mark_color = new QGraphicsRectItem(0, 0, 100, 40);
+            auto *mark_text =new QGraphicsTextItem(mark_color);
+
+            mark_text->setTextWidth(100);
+            mark_text->setPlainText("Add text");
+
+            scene->addItem(mark_color);
+            mark_text->setTextInteractionFlags(Qt::TextEditorInteraction);
+            mark_color->setFlags(QGraphicsItem::ItemIsMovable|QGraphicsItem::ItemIsSelectable);
+            mark_color->setBrush(Qt::green);
+
+//            scene->addText("text");
+//            scene->addItem(field);
+
+//                        auto *proxy = new QGraphicsProxyWidget(item);
+//                        auto *btn = new QLabel("Mark1");
+
+//                        btn->setGeometry(0, 0, 77, 26);
+
+//                        item->setFlags(QGraphicsItem::ItemIsMovable|QGraphicsItem::ItemIsSelectable);
+//                        item->setBrush(Qt::darkYellow);
+
+//                        proxy->setWidget(btn);
+//                        proxy->setPos(0, 15);
+//                        proxy->setFlags(QGraphicsItem::ItemIsMovable|QGraphicsItem::ItemIsSelectable);
+
+//                        scene->addItem(item);
+
+//                        QGraphicsTextItem * field = scene->addText("text");
+//                        field->setTextInteractionFlags(Qt::TextEditorInteraction);
+//                        scene->addItem(field);
+//                        BasicShapesItem *item = new BasicShapesItem(0,0,100,30,BasicShapesItem::ITEM_TOOL,scene);
+
+
+//                        QGraphicsTextItem * field = scene->addText("text");
+//                        field->setTextInteractionFlags(Qt::TextEditorInteraction);
+//                        scene->addItem(field);
         }
 }
 
 
 void MainWindow::SaveProject()
 {
-
     QMessageBox SaveQstnMsgBox;
     SaveQstnMsgBox.setWindowTitle("Save project");
     SaveQstnMsgBox.setText("Finish your project?");
@@ -158,7 +197,6 @@ void MainWindow::SaveProject()
             }
         }
     }
-
 }
 
 void MainWindow::OpenProject()
@@ -169,7 +207,7 @@ void MainWindow::OpenProject()
     ui->WorkPlaceGV->setScene(scene);
 }
 
-void MainWindow::delete_selected()////////////
+void MainWindow::delete_selected()
 {
   foreach(QGraphicsItem *item, scene->selectedItems())
   {
@@ -179,21 +217,23 @@ void MainWindow::delete_selected()////////////
 
 void MainWindow::dragEnterEvent(QDragEnterEvent *event)
 {
-    if ( ui->WorkPlaceGV->items().empty())
-    {
-        QMessageBox TrueInputMsgBox;
-        TrueInputMsgBox.setWindowTitle("Data entry error");
-        TrueInputMsgBox.setText("Select one of the frames for the application.This can be done in the menu at the top, the item <Add Frame>.");
-        QPushButton *OKButton = TrueInputMsgBox.addButton(QMessageBox::Ok);
-        TrueInputMsgBox.exec();
-    }
-    else
-    {
-        if (event->mimeData()->hasUrls())
-        {
-            event->acceptProposedAction();
-        }
-    }
+        event->acceptProposedAction();
+
+//    if ( ui->WorkPlaceGV->items().empty())
+//    {
+//        QMessageBox TrueInputMsgBox;
+//        TrueInputMsgBox.setWindowTitle("Data entry error");
+//        TrueInputMsgBox.setText("Select one of the frames for the application.This can be done in the menu at the top, the item <Add Frame>.");
+//        QPushButton *OKButton = TrueInputMsgBox.addButton(QMessageBox::Ok);
+//        TrueInputMsgBox.exec();
+//    }
+//    else
+//    {
+//        if (event->mimeData()->hasUrls())
+//        {
+//            event->acceptProposedAction();
+//        }
+//    }
 }
 
 void MainWindow::dropEvent(QDropEvent *event) {
