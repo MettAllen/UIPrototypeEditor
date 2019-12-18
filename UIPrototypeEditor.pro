@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui svg xml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -22,7 +22,8 @@ SOURCES += \
     graphics_view_zoom.cpp \
     handle.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    svgreader.cpp
 
 HEADERS += \
     baseitem.h \
@@ -30,7 +31,8 @@ HEADERS += \
     editorscene.h \
     graphics_view_zoom.h \
     handle.h \
-    mainwindow.h
+    mainwindow.h \
+    svgreader.h
 
 FORMS += \
     mainwindow.ui

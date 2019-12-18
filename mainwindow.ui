@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>913</width>
-    <height>729</height>
+    <height>730</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -43,7 +43,7 @@
      <x>0</x>
      <y>0</y>
      <width>913</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -52,6 +52,8 @@
     </property>
     <addaction name="actionOpen"/>
     <addaction name="actionSave_As"/>
+    <addaction name="actionSave_SVG"/>
+    <addaction name="actionOpen_SVG"/>
    </widget>
    <widget class="QMenu" name="menuAdd_Frame">
     <property name="title">
@@ -122,6 +124,16 @@
    </property>
    <property name="text">
     <string>Add Empty Frame</string>
+   </property>
+  </action>
+  <action name="actionSave_SVG">
+   <property name="text">
+    <string>Save SVG</string>
+   </property>
+  </action>
+  <action name="actionOpen_SVG">
+   <property name="text">
+    <string>Open SVG</string>
    </property>
   </action>
  </widget>

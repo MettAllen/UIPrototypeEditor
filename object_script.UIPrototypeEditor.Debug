@@ -5,6 +5,7 @@ debug/graphics_view_zoom.o
 debug/handle.o
 debug/main.o
 debug/mainwindow.o
+debug/svgreader.o
 debug/qrc_Resources.o
 debug/moc_editorscene.o
 debug/moc_graphics_view_zoom.o

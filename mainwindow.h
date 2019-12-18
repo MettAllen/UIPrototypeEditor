@@ -10,6 +10,7 @@
 #include <QMimeData>
 #include <QMessageBox>
 #include <QPushButton>
+#include <QSvgGenerator>
 #include <QShortcut>
 
 namespace Ui {
@@ -29,6 +30,9 @@ public:
     void OpenProject();
     void dropEvent(QDropEvent *event);
     void dragEnterEvent(QDragEnterEvent *event);
+    void SaveSVG();
+    void OpenSVG();
+
 private slots:
 
     void delete_selected();
@@ -45,10 +49,15 @@ private slots:
 
     void on_actionAdd_Empty_Frame_triggered();
 
+    void on_actionSave_SVG_triggered();
+
+    void on_actionOpen_SVG_triggered();
+
 private:
     Ui::MainWindow *ui;
     QListWidgetItem *item;
     EditorScene *scene;
+    QString path;
 };
 
 #endif // MAINWINDOW_H

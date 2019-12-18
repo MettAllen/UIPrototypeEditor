@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.13.1
+** Created by: Qt User Interface Compiler version 5.12.6
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -32,6 +32,8 @@ public:
     QAction *actionAddDescktop_Frame;
     QAction *actionAdd_Mobile_Frame;
     QAction *actionAdd_Empty_Frame;
+    QAction *actionSave_SVG;
+    QAction *actionOpen_SVG;
     QWidget *centralWidget;
     QHBoxLayout *horizontalLayout;
     QListWidget *ToolBoxLW;
@@ -46,17 +48,36 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(913, 729);
+        MainWindow->resize(913, 730);
         actionOpen = new QAction(MainWindow);
         actionOpen->setObjectName(QString::fromUtf8("actionOpen"));
+        QIcon icon;
+        icon.addFile(QString::fromUtf8(":/Resources/icon/open.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionOpen->setIcon(icon);
         actionSave_As = new QAction(MainWindow);
         actionSave_As->setObjectName(QString::fromUtf8("actionSave_As"));
+        QIcon icon1;
+        icon1.addFile(QString::fromUtf8(":/Resources/icon/save.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionSave_As->setIcon(icon1);
         actionAddDescktop_Frame = new QAction(MainWindow);
         actionAddDescktop_Frame->setObjectName(QString::fromUtf8("actionAddDescktop_Frame"));
+        QIcon icon2;
+        icon2.addFile(QString::fromUtf8(":/Resources/frames/tablet_frame.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionAddDescktop_Frame->setIcon(icon2);
         actionAdd_Mobile_Frame = new QAction(MainWindow);
         actionAdd_Mobile_Frame->setObjectName(QString::fromUtf8("actionAdd_Mobile_Frame"));
+        QIcon icon3;
+        icon3.addFile(QString::fromUtf8(":/Resources/frames/phone_frame.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionAdd_Mobile_Frame->setIcon(icon3);
         actionAdd_Empty_Frame = new QAction(MainWindow);
         actionAdd_Empty_Frame->setObjectName(QString::fromUtf8("actionAdd_Empty_Frame"));
+        QIcon icon4;
+        icon4.addFile(QString::fromUtf8(":/Resources/frames/bg_grid.gif"), QSize(), QIcon::Normal, QIcon::Off);
+        actionAdd_Empty_Frame->setIcon(icon4);
+        actionSave_SVG = new QAction(MainWindow);
+        actionSave_SVG->setObjectName(QString::fromUtf8("actionSave_SVG"));
+        actionOpen_SVG = new QAction(MainWindow);
+        actionOpen_SVG->setObjectName(QString::fromUtf8("actionOpen_SVG"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         horizontalLayout = new QHBoxLayout(centralWidget);
@@ -70,16 +91,15 @@ public:
         horizontalLayout->addWidget(ToolBoxLW);
 
         WorkPlaceGV = new QGraphicsView(centralWidget);
-        WorkPlaceGV->setObjectName(QString::fromUtf8("graphicsView"));
+        WorkPlaceGV->setObjectName(QString::fromUtf8("WorkPlaceGV"));
         WorkPlaceGV->setMinimumSize(QSize(759, 652));
-        WorkPlaceGV->setAcceptDrops(false);
 
         horizontalLayout->addWidget(WorkPlaceGV);
 
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 913, 20));
+        menuBar->setGeometry(QRect(0, 0, 913, 21));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QString::fromUtf8("menuFile"));
         menuAdd_Frame = new QMenu(menuBar);
@@ -96,6 +116,8 @@ public:
         menuBar->addAction(menuAdd_Frame->menuAction());
         menuFile->addAction(actionOpen);
         menuFile->addAction(actionSave_As);
+        menuFile->addAction(actionSave_SVG);
+        menuFile->addAction(actionOpen_SVG);
         menuAdd_Frame->addAction(actionAddDescktop_Frame);
         menuAdd_Frame->addAction(actionAdd_Mobile_Frame);
         menuAdd_Frame->addAction(actionAdd_Empty_Frame);
@@ -107,14 +129,22 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
-        actionOpen->setText(QCoreApplication::translate("MainWindow", "Open", nullptr));
-        actionSave_As->setText(QCoreApplication::translate("MainWindow", "Save As", nullptr));
-        actionAddDescktop_Frame->setText(QCoreApplication::translate("MainWindow", "Add Descktop Frame", nullptr));
-        actionAdd_Mobile_Frame->setText(QCoreApplication::translate("MainWindow", "Add Mobile Frame", nullptr));
-        actionAdd_Empty_Frame->setText(QCoreApplication::translate("MainWindow", "Add Empty Frame", nullptr));
-        menuFile->setTitle(QCoreApplication::translate("MainWindow", "File", nullptr));
-        menuAdd_Frame->setTitle(QCoreApplication::translate("MainWindow", "Add Frame", nullptr));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", nullptr));
+        actionOpen->setText(QApplication::translate("MainWindow", "Open", nullptr));
+#ifndef QT_NO_SHORTCUT
+        actionOpen->setShortcut(QApplication::translate("MainWindow", "Ctrl+O", nullptr));
+#endif // QT_NO_SHORTCUT
+        actionSave_As->setText(QApplication::translate("MainWindow", "Save As", nullptr));
+#ifndef QT_NO_SHORTCUT
+        actionSave_As->setShortcut(QApplication::translate("MainWindow", "Ctrl+S", nullptr));
+#endif // QT_NO_SHORTCUT
+        actionAddDescktop_Frame->setText(QApplication::translate("MainWindow", "Add Descktop Frame", nullptr));
+        actionAdd_Mobile_Frame->setText(QApplication::translate("MainWindow", "Add Mobile Frame", nullptr));
+        actionAdd_Empty_Frame->setText(QApplication::translate("MainWindow", "Add Empty Frame", nullptr));
+        actionSave_SVG->setText(QApplication::translate("MainWindow", "Save SVG", nullptr));
+        actionOpen_SVG->setText(QApplication::translate("MainWindow", "Open SVG", nullptr));
+        menuFile->setTitle(QApplication::translate("MainWindow", "File", nullptr));
+        menuAdd_Frame->setTitle(QApplication::translate("MainWindow", "Add Frame", nullptr));
     } // retranslateUi
 
 };

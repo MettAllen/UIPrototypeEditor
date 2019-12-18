@@ -5,6 +5,7 @@
 
 class BasicShapesItem : public BaseItem
 {
+
 public:
     enum ItemType {ITEM_RECTANGLE,ITEM_TOOL};
     BasicShapesItem(qreal x, qreal y, qreal w, qreal h,ItemType type,QGraphicsScene *scene, QGraphicsItem *parent = 0);

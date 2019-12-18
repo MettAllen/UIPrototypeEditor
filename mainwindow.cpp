@@ -4,6 +4,7 @@
 #include "editorscene.h"
 #include "basicshapeitem.h"
 #include "graphics_view_zoom.h"
+#include "svgreader.h"
 #include <QDebug>
 #include <QStyleFactory>
 #include <QApplication>
@@ -24,7 +25,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->WorkPlaceGV->setBackgroundBrush(QPixmap(":/Resources/frames/bg_grid.gif"));
 
-    connect(ui->ToolBoxLW, SIGNAL(itemClicked(QListWidgetItem*)),this, SLOT(onListMailItemClicked(QListWidgetItem*)));
     setAcceptDrops(true);
 
     scene = new EditorScene();
@@ -79,91 +79,65 @@ MainWindow::~MainWindow()
 void MainWindow::on_ToolBoxLW_itemDoubleClicked(QListWidgetItem *item)
 {
 
-        if (ui->ToolBoxLW->item(0) == item)
-        {
-            BasicShapesItem *item = new BasicShapesItem(12,12,100,30,BasicShapesItem::ITEM_TOOL,scene);
-            item->setPixmap(":/Resources/items/button.png");
-        }
+    if (ui->ToolBoxLW->item(0) == item)
+    {
+        BasicShapesItem *item = new BasicShapesItem(12,12,100,30,BasicShapesItem::ITEM_TOOL,scene);
+        item->setPixmap(":/Resources/items/button.png");
+    }
 
-        if (ui->ToolBoxLW->item(1) == item)
-        {
-            BasicShapesItem *item = new BasicShapesItem(12,12,100,30,BasicShapesItem::ITEM_TOOL,scene);
-            item->setPixmap(":/Resources/items/label.png");
-        }
+    if (ui->ToolBoxLW->item(1) == item)
+    {
+        BasicShapesItem *item = new BasicShapesItem(12,12,100,30,BasicShapesItem::ITEM_TOOL,scene);
+        item->setPixmap(":/Resources/items/label.png");
+    }
 
-        if (ui->ToolBoxLW->item(2) == item)
-        {
-            BasicShapesItem *item = new BasicShapesItem(12,12,100,30,BasicShapesItem::ITEM_TOOL,scene);
-            item->setPixmap(":/Resources/items/checkbox.png");
-        }
+    if (ui->ToolBoxLW->item(2) == item)
+    {
+        BasicShapesItem *item = new BasicShapesItem(12,12,100,30,BasicShapesItem::ITEM_TOOL,scene);
+        item->setPixmap(":/Resources/items/checkbox.png");
+    }
 
-        if (ui->ToolBoxLW->item(3) == item)
-        {
-            BasicShapesItem *item = new BasicShapesItem(12,12,100,30,BasicShapesItem::ITEM_TOOL,scene);
-            item->setPixmap(":/Resources/items/slider.png");
-        }
+    if (ui->ToolBoxLW->item(3) == item)
+    {
+        BasicShapesItem *item = new BasicShapesItem(12,12,100,30,BasicShapesItem::ITEM_TOOL,scene);
+        item->setPixmap(":/Resources/items/slider.png");
+    }
 
-        if (ui->ToolBoxLW->item(4) == item)
-        {
-            BasicShapesItem *item = new BasicShapesItem(12,12,100,30,BasicShapesItem::ITEM_TOOL,scene);
-            item->setPixmap(":/Resources/items/textarea.png");
-        }
+    if (ui->ToolBoxLW->item(4) == item)
+    {
+        BasicShapesItem *item = new BasicShapesItem(12,12,100,30,BasicShapesItem::ITEM_TOOL,scene);
+        item->setPixmap(":/Resources/items/textarea.png");
+    }
 
-        if (ui->ToolBoxLW->item(5) == item)
-        {
-            BasicShapesItem *item = new BasicShapesItem(12,12,100,30,BasicShapesItem::ITEM_TOOL,scene);
-            item->setPixmap(":/Resources/items/textinput.png");
+    if (ui->ToolBoxLW->item(5) == item)
+    {
+        BasicShapesItem *item = new BasicShapesItem(12,12,100,30,BasicShapesItem::ITEM_TOOL,scene);
+        item->setPixmap(":/Resources/items/textinput.png");
 
-        }
+    }
 
-        if (ui->ToolBoxLW->item(6) == item)
-        {
-            BasicShapesItem *item = new BasicShapesItem(12,12,100,30,BasicShapesItem::ITEM_TOOL,scene);
-            item->setPixmap(":/Resources/items/toggle.png");
-        }
+    if (ui->ToolBoxLW->item(6) == item)
+    {
+        BasicShapesItem *item = new BasicShapesItem(12,12,100,30,BasicShapesItem::ITEM_TOOL,scene);
+        item->setPixmap(":/Resources/items/toggle.png");
+    }
 
-        if (ui->ToolBoxLW->item(7) == item)
-        {
-            /// до реализовать жесткие размеры
+    if (ui->ToolBoxLW->item(7) == item)
+    {
+        /// до реализовать жесткие размеры
 
-            auto *mark_color = new QGraphicsRectItem(0, 0, 100, 40);
-            auto *mark_text =new QGraphicsTextItem(mark_color);
+        auto *mark_color = new QGraphicsRectItem(0, 0, 100, 40);
+        auto *mark_text =new QGraphicsTextItem(mark_color);
 
-            mark_text->setTextWidth(100);
-            mark_text->setPlainText("Add text");
+        mark_text->setTextWidth(100);
+        mark_text->setPlainText("Add text");
 
-            scene->addItem(mark_color);
-            mark_text->setTextInteractionFlags(Qt::TextEditorInteraction);
-            mark_color->setFlags(QGraphicsItem::ItemIsMovable|QGraphicsItem::ItemIsSelectable);
-            mark_color->setBrush(Qt::green);
+        scene->addItem(mark_color);
+        mark_text->setTextInteractionFlags(Qt::TextEditorInteraction);
+        mark_color->setFlags(QGraphicsItem::ItemIsMovable|QGraphicsItem::ItemIsSelectable);
 
-//            scene->addText("text");
-//            scene->addItem(field);
-
-//                        auto *proxy = new QGraphicsProxyWidget(item);
-//                        auto *btn = new QLabel("Mark1");
-
-//                        btn->setGeometry(0, 0, 77, 26);
-
-//                        item->setFlags(QGraphicsItem::ItemIsMovable|QGraphicsItem::ItemIsSelectable);
-//                        item->setBrush(Qt::darkYellow);
-
-//                        proxy->setWidget(btn);
-//                        proxy->setPos(0, 15);
-//                        proxy->setFlags(QGraphicsItem::ItemIsMovable|QGraphicsItem::ItemIsSelectable);
-
-//                        scene->addItem(item);
-
-//                        QGraphicsTextItem * field = scene->addText("text");
-//                        field->setTextInteractionFlags(Qt::TextEditorInteraction);
-//                        scene->addItem(field);
-//                        BasicShapesItem *item = new BasicShapesItem(0,0,100,30,BasicShapesItem::ITEM_TOOL,scene);
-
-
-//                        QGraphicsTextItem * field = scene->addText("text");
-//                        field->setTextInteractionFlags(Qt::TextEditorInteraction);
-//                        scene->addItem(field);
-        }
+        mark_color->setBrush(Qt::green);
+    }
 }
 
 
@@ -209,40 +183,24 @@ void MainWindow::OpenProject()
 
 void MainWindow::delete_selected()
 {
-  foreach(QGraphicsItem *item, scene->selectedItems())
-  {
-    delete item;
-  }
+    foreach(QGraphicsItem *item, scene->selectedItems())
+    {
+        delete item;
+    }
 }
 
 void MainWindow::dragEnterEvent(QDragEnterEvent *event)
 {
-        event->acceptProposedAction();
-
-//    if ( ui->WorkPlaceGV->items().empty())
-//    {
-//        QMessageBox TrueInputMsgBox;
-//        TrueInputMsgBox.setWindowTitle("Data entry error");
-//        TrueInputMsgBox.setText("Select one of the frames for the application.This can be done in the menu at the top, the item <Add Frame>.");
-//        QPushButton *OKButton = TrueInputMsgBox.addButton(QMessageBox::Ok);
-//        TrueInputMsgBox.exec();
-//    }
-//    else
-//    {
-//        if (event->mimeData()->hasUrls())
-//        {
-//            event->acceptProposedAction();
-//        }
-//    }
+    event->acceptProposedAction();
 }
 
-void MainWindow::dropEvent(QDropEvent *event) {
+void MainWindow::dropEvent(QDropEvent *event) {/// проект перекидывается криво!
 
     foreach(QUrl url, event->mimeData()->urls())
     {
-      BasicShapesItem *item = new BasicShapesItem(12,12,100,100,BasicShapesItem::ITEM_TOOL,scene);
-      item->setPixmap(url.toLocalFile());
-      item->setPos(ui->WorkPlaceGV->mapToScene(ui->WorkPlaceGV->viewport()->mapFrom(this, event->pos())));
+        BasicShapesItem *item = new BasicShapesItem(12,12,100,100,BasicShapesItem::ITEM_TOOL,scene);
+        item->setPixmap(url.toLocalFile());
+        item->setPos(ui->WorkPlaceGV->mapToScene(ui->WorkPlaceGV->viewport()->mapFrom(this, event->pos())));
     }
 
 }
@@ -297,3 +255,51 @@ void MainWindow::on_actionAdd_Empty_Frame_triggered()
     setAcceptDrops(true);
 }
 
+void MainWindow::SaveSVG()
+{
+    QString newPath = QFileDialog::getSaveFileName(this, trUtf8("Save SVG"),
+                                                   path, tr("SVG files (*.svg)"));
+
+    if (newPath.isEmpty())
+        return;
+
+    path = newPath;
+
+    QSvgGenerator generator;
+    generator.setFileName(path);
+    generator.setSize(QSize(scene->width(), scene->height()));
+    generator.setViewBox(QRect(0, 0, scene->width(), scene->height()));
+    generator.setTitle(trUtf8("SVG Example"));
+    generator.setDescription(trUtf8("File created by SVG Example"));
+
+
+    QPainter painter;
+    painter.begin(&generator);
+    scene->render(&painter);
+    painter.end();
+
+}
+
+
+void MainWindow::OpenSVG()
+{
+    //    QString newPath = QFileDialog::getOpenFileName(this, trUtf8("Open SVG"),
+    //                                                   path, tr("SVG files (*.svg)"));
+    //    if (newPath.isEmpty())
+    //        return;
+
+    //    path = newPath;
+    //    scene->clear();
+
+    //    scene->setSceneRect(SvgReader::getSizes(path));
+}
+
+void MainWindow::on_actionSave_SVG_triggered()
+{
+    SaveSVG();
+}
+
+void MainWindow::on_actionOpen_SVG_triggered()
+{
+    OpenSVG();
+}
