@@ -93,6 +93,9 @@ public:
         WorkPlaceGV = new QGraphicsView(centralWidget);
         WorkPlaceGV->setObjectName(QString::fromUtf8("WorkPlaceGV"));
         WorkPlaceGV->setMinimumSize(QSize(759, 652));
+        QBrush brush(QColor(154, 153, 153, 255));
+        brush.setStyle(Qt::SolidPattern);
+        WorkPlaceGV->setBackgroundBrush(brush);
 
         horizontalLayout->addWidget(WorkPlaceGV);
 

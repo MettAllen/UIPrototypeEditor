@@ -17,5 +17,6 @@
         <file>Resources/frames/tablet_frame.png</file>
         <file>Resources/icon/open.png</file>
         <file>Resources/icon/save.png</file>
+        <file>Resources/frames/startscreen.png</file>
     </qresource>
 </RCC>

@@ -23,12 +23,11 @@ MainWindow::MainWindow(QWidget *parent) :
     Graphics_view_zoom *z = new Graphics_view_zoom(ui->WorkPlaceGV);
     z->set_modifiers(Qt::NoModifier);
 
-    ui->WorkPlaceGV->setBackgroundBrush(QPixmap(":/Resources/frames/bg_grid.gif"));
-
     setAcceptDrops(true);
 
     scene = new EditorScene();
 
+    scene->addPixmap(QString(":/Resources/frames/startscreen.png"));
     ui->WorkPlaceGV->setScene(scene);
 
     new QShortcut(QKeySequence::Delete, this, SLOT(delete_selected()));
@@ -52,6 +51,9 @@ void MainWindow::LoadTools()
     ui->ToolBoxLW->addItem(item);
 
     item = new QListWidgetItem(QIcon(":/Resources/items/checkbox.png"),nullptr);
+    ui->ToolBoxLW->addItem(item);
+
+    item = new QListWidgetItem(QIcon(":/Resources/items/radiobutton .png"),nullptr);
     ui->ToolBoxLW->addItem(item);
 
     item = new QListWidgetItem(QIcon(":/Resources/items/slider.png"),nullptr);
@@ -100,29 +102,35 @@ void MainWindow::on_ToolBoxLW_itemDoubleClicked(QListWidgetItem *item)
     if (ui->ToolBoxLW->item(3) == item)
     {
         BasicShapesItem *item = new BasicShapesItem(12,12,100,30,BasicShapesItem::ITEM_TOOL,scene);
-        item->setPixmap(":/Resources/items/slider.png");
+        item->setPixmap(":/Resources/items/radiobutton .png");
     }
 
     if (ui->ToolBoxLW->item(4) == item)
     {
         BasicShapesItem *item = new BasicShapesItem(12,12,100,30,BasicShapesItem::ITEM_TOOL,scene);
-        item->setPixmap(":/Resources/items/textarea.png");
+        item->setPixmap(":/Resources/items/slider.png");
     }
 
     if (ui->ToolBoxLW->item(5) == item)
+    {
+        BasicShapesItem *item = new BasicShapesItem(12,12,100,30,BasicShapesItem::ITEM_TOOL,scene);
+        item->setPixmap(":/Resources/items/textarea.png");
+    }
+
+    if (ui->ToolBoxLW->item(6) == item)
     {
         BasicShapesItem *item = new BasicShapesItem(12,12,100,30,BasicShapesItem::ITEM_TOOL,scene);
         item->setPixmap(":/Resources/items/textinput.png");
 
     }
 
-    if (ui->ToolBoxLW->item(6) == item)
+    if (ui->ToolBoxLW->item(7) == item)
     {
         BasicShapesItem *item = new BasicShapesItem(12,12,100,30,BasicShapesItem::ITEM_TOOL,scene);
         item->setPixmap(":/Resources/items/toggle.png");
     }
 
-    if (ui->ToolBoxLW->item(7) == item)
+    if (ui->ToolBoxLW->item(8) == item)
     {
         /// до реализовать жесткие размеры
 
@@ -229,7 +237,9 @@ void MainWindow::on_actionSave_As_triggered()
 
 void MainWindow::on_actionAddDescktop_Frame_triggered()
 {
+    scene = new EditorScene();
     scene->clear();
+    ui->WorkPlaceGV->setBackgroundBrush(QPixmap(":/Resources/frames/bg_grid.gif"));
     scene->addPixmap(QString(":/Resources/frames/tablet_frame.png"));
     ui->WorkPlaceGV->setScene(scene);
     ui->WorkPlaceGV->show();
@@ -240,6 +250,7 @@ void MainWindow::on_actionAdd_Mobile_Frame_triggered()
 {
     scene = new EditorScene();
     scene->clear();
+    ui->WorkPlaceGV->setBackgroundBrush(QPixmap(":/Resources/frames/bg_grid.gif"));
     scene->addPixmap(QString(":/Resources/frames/phone_frame.png"));
     ui->WorkPlaceGV->setScene(scene);
     ui->WorkPlaceGV->show();
@@ -248,6 +259,7 @@ void MainWindow::on_actionAdd_Mobile_Frame_triggered()
 
 void MainWindow::on_actionAdd_Empty_Frame_triggered()
 {
+    scene = new EditorScene();
     scene->clear();
     scene->addPixmap((QPixmap(":/Resources/frames/bg_grid.gif")));
     ui->WorkPlaceGV->setScene(scene);
